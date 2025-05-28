@@ -8,14 +8,24 @@
 
 import Cocoa
 
-@main
+//@main
 class AppDelegate: NSObject, NSApplicationDelegate {
-
-    
-
+    var window: NSWindow!
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
+        let windowSize = NSMakeRect(0, 0, 800, 600)
+
+        window = NSWindow(
+            contentRect: windowSize,
+            styleMask: [.titled, .closable, .resizable, .miniaturizable],
+            backing: .buffered,
+            defer: false
+        )
+
+        window.center()
+        window.title = "Pomodoro"
+        window.makeKeyAndOrderFront(nil)
+        window.contentViewController = MainViewController()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
