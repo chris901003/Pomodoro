@@ -12,6 +12,8 @@ import Cocoa
 class MainViewController: NSViewController {
     let titleLabel = NSTextField()
     let timeCircleBackground = NSView()
+    let timeView = TimeView()
+
     let startButtonView = StartButtonView()
     let stopButtonView = StopButtonView()
 
@@ -39,6 +41,8 @@ class MainViewController: NSViewController {
         timeCircleBackground.layer?.cornerRadius = 200
         timeCircleBackground.layer?.borderWidth = 5.0
         timeCircleBackground.layer?.borderColor = NSColor.controlBackgroundColor.cgColor
+
+        timeView.alphaValue = 0
     }
 
     private func layout() {
@@ -57,6 +61,13 @@ class MainViewController: NSViewController {
             timeCircleBackground.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             timeCircleBackground.widthAnchor.constraint(equalToConstant: 400),
             timeCircleBackground.heightAnchor.constraint(equalToConstant: 400)
+        ])
+
+        view.addSubview(timeView)
+        timeView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            timeView.centerXAnchor.constraint(equalTo: timeCircleBackground.centerXAnchor),
+            timeView.centerYAnchor.constraint(equalTo: timeCircleBackground.centerYAnchor)
         ])
 
         view.addSubview(startButtonView)
