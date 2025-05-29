@@ -9,9 +9,15 @@
 import Foundation
 import Cocoa
 
+protocol StartButtonViewDelegate: AnyObject {
+    func startPomodoro()
+}
+
 class StartButtonView: NSView {
     let circleView = NSView()
     let labelView = NSTextField()
+
+    weak var delegate: StartButtonViewDelegate?
 
     init() {
         super.init(frame: .zero)
@@ -88,7 +94,6 @@ class StartButtonView: NSView {
     override func mouseDown(with event: NSEvent) {
         let locationInView = convert(event.locationInWindow, from: nil)
         if circleView.frame.contains(locationInView) {
-            print("✅ Mouse down")
             circleView.layer?.backgroundColor = .clear
             labelView.textColor = .systemGreen
         }
@@ -97,9 +102,9 @@ class StartButtonView: NSView {
     override func mouseUp(with event: NSEvent) {
         let locationInView = convert(event.locationInWindow, from: nil)
         if circleView.frame.contains(locationInView) {
-            print("✅ Mouse up")
             circleView.layer?.backgroundColor = NSColor.systemGreen.cgColor
             labelView.textColor = .white
+            delegate?.startPomodoro()
         }
     }
 }

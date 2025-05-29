@@ -12,6 +12,7 @@ import Cocoa
 class MainViewController: NSViewController {
     let titleLabel = NSTextField()
     let timeCircleBackground = NSView()
+    let circleView = GradientCircleProgressView()
 
     let timeView = TimeView()
 
@@ -22,6 +23,8 @@ class MainViewController: NSViewController {
     let startButtonView = StartButtonView()
     let stopButtonView = StopButtonView()
 
+    let manager = MainManager()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -29,6 +32,8 @@ class MainViewController: NSViewController {
     }
 
     private func setup() {
+        manager.vc = self
+
         view.wantsLayer = true
         view.layer?.backgroundColor = NSColor.windowBackgroundColor.cgColor
 
@@ -47,7 +52,12 @@ class MainViewController: NSViewController {
         timeCircleBackground.layer?.borderWidth = 5.0
         timeCircleBackground.layer?.borderColor = NSColor.controlBackgroundColor.cgColor
 
+        circleView.alphaValue = 0
+
         timeView.alphaValue = 0
+
+        startButtonView.delegate = manager
+        stopButtonView.delegate = manager
     }
 
     private func layout() {
@@ -66,6 +76,15 @@ class MainViewController: NSViewController {
             timeCircleBackground.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             timeCircleBackground.widthAnchor.constraint(equalToConstant: 400),
             timeCircleBackground.heightAnchor.constraint(equalToConstant: 400)
+        ])
+
+        view.addSubview(circleView)
+        circleView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            circleView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24),
+            circleView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            circleView.widthAnchor.constraint(equalToConstant: 400),
+            circleView.heightAnchor.constraint(equalToConstant: 400)
         ])
 
         view.addSubview(timeView)

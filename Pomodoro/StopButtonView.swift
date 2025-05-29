@@ -9,11 +9,28 @@
 import Foundation
 import Cocoa
 
+protocol StopButtonViewDelegate: AnyObject {
+    func stopPomodoro()
+}
+
 class StopButtonView: NSView {
     let circleView = NSView()
     let labelView = NSTextField()
 
-    var isActivate: Bool = false
+    var isActivate: Bool = false {
+        didSet {
+            if isActivate {
+                circleView.layer?.borderColor = NSColor.systemRed.cgColor
+                labelView.textColor = .white
+            } else {
+                circleView.layer?.borderColor = NSColor.controlBackgroundColor.cgColor
+                labelView.textColor = .controlBackgroundColor
+                circleView.layer?.backgroundColor = .clear
+            }
+        }
+    }
+
+    weak var delegate: StopButtonViewDelegate?
 
     init() {
         super.init(frame: .zero)
@@ -72,7 +89,7 @@ class StopButtonView: NSView {
             rect: circleView.bounds,
             options: options,
             owner: self,
-            userInfo: ["id": "start-circle-view"]
+            userInfo: ["id": "stop-circle-view"]
         )
         circleView.addTrackingArea(trackingArea)
     }
@@ -93,7 +110,6 @@ class StopButtonView: NSView {
         guard isActivate else { return }
         let locationInView = convert(event.locationInWindow, from: nil)
         if circleView.frame.contains(locationInView) {
-            print("✅ Mouse down")
             circleView.layer?.backgroundColor = .clear
             labelView.textColor = .systemRed
         }
@@ -103,9 +119,9 @@ class StopButtonView: NSView {
         guard isActivate else { return }
         let locationInView = convert(event.locationInWindow, from: nil)
         if circleView.frame.contains(locationInView) {
-            print("✅ Mouse up")
             circleView.layer?.backgroundColor = NSColor.systemRed.cgColor
             labelView.textColor = .white
+            delegate?.stopPomodoro()
         }
     }
 }
