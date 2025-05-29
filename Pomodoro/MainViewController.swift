@@ -12,7 +12,10 @@ import Cocoa
 class MainViewController: NSViewController {
     let titleLabel = NSTextField()
     let timeCircleBackground = NSView()
+
     let timeView = TimeView()
+
+    let setWorkTimeView = SetWorkTimeView()
 
     let startButtonView = StartButtonView()
     let stopButtonView = StopButtonView()
@@ -68,6 +71,13 @@ class MainViewController: NSViewController {
         NSLayoutConstraint.activate([
             timeView.centerXAnchor.constraint(equalTo: timeCircleBackground.centerXAnchor),
             timeView.centerYAnchor.constraint(equalTo: timeCircleBackground.centerYAnchor)
+        ])
+
+        view.addSubview(setWorkTimeView)
+        setWorkTimeView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            setWorkTimeView.centerXAnchor.constraint(equalTo: timeCircleBackground.centerXAnchor),
+            setWorkTimeView.bottomAnchor.constraint(equalTo: timeCircleBackground.centerYAnchor, constant: -24)
         ])
 
         view.addSubview(startButtonView)
