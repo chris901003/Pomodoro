@@ -2,16 +2,18 @@
 // Using Swift 6.0
 //
 //
-// Created by HongYan on 2025/5/28.
+// Created by HongYan on 2025/5/29.
 // Copyright © 2025 HongYan. All rights reserved.
 
 
 import Foundation
 import Cocoa
 
-class StartButtonView: NSView {
+class StopButtonView: NSView {
     let circleView = NSView()
     let labelView = NSTextField()
+
+    var isActivate: Bool = false
 
     init() {
         super.init(frame: .zero)
@@ -28,11 +30,11 @@ class StartButtonView: NSView {
         circleView.wantsLayer = true
         circleView.layer?.cornerRadius = 40
         circleView.layer?.borderWidth = 2.0
-        circleView.layer?.borderColor = NSColor.systemGreen.cgColor
+        circleView.layer?.borderColor = NSColor.controlBackgroundColor.cgColor
 
-        labelView.stringValue = "Start"
+        labelView.stringValue = "Stop"
         labelView.font = .systemFont(ofSize: 14, weight: .bold)
-        labelView.textColor = .systemGreen
+        labelView.textColor = .controlBackgroundColor
         labelView.maximumNumberOfLines = 1
         labelView.alignment = .center
         labelView.isBordered = false
@@ -76,29 +78,33 @@ class StartButtonView: NSView {
     }
 
     override func mouseEntered(with event: NSEvent) {
-        circleView.layer?.backgroundColor = NSColor.systemGreen.cgColor
+        guard isActivate else { return }
+        circleView.layer?.backgroundColor = NSColor.systemRed.cgColor
         labelView.textColor = .white
     }
 
     override func mouseExited(with event: NSEvent) {
+        guard isActivate else { return }
         circleView.layer?.backgroundColor = .clear
-        labelView.textColor = .systemGreen
+        labelView.textColor = .systemRed
     }
 
     override func mouseDown(with event: NSEvent) {
+        guard isActivate else { return }
         let locationInView = convert(event.locationInWindow, from: nil)
         if circleView.frame.contains(locationInView) {
             print("✅ Mouse down")
             circleView.layer?.backgroundColor = .clear
-            labelView.textColor = .systemGreen
+            labelView.textColor = .systemRed
         }
     }
 
     override func mouseUp(with event: NSEvent) {
+        guard isActivate else { return }
         let locationInView = convert(event.locationInWindow, from: nil)
         if circleView.frame.contains(locationInView) {
             print("✅ Mouse up")
-            circleView.layer?.backgroundColor = NSColor.systemGreen.cgColor
+            circleView.layer?.backgroundColor = NSColor.systemRed.cgColor
             labelView.textColor = .white
         }
     }

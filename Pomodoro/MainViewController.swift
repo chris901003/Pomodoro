@@ -13,6 +13,7 @@ class MainViewController: NSViewController {
     let titleLabel = NSTextField()
     let timeCircleBackground = NSView()
     let startButtonView = StartButtonView()
+    let stopButtonView = StopButtonView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +64,13 @@ class MainViewController: NSViewController {
         NSLayoutConstraint.activate([
             startButtonView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
             startButtonView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -12)
+        ])
+
+        view.addSubview(stopButtonView)
+        stopButtonView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            stopButtonView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
+            stopButtonView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -12)
         ])
     }
 }
