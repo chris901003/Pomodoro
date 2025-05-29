@@ -26,7 +26,7 @@ class SetWorkTimeView: NSView {
             hourTextFieldView.stringValue = (setHour > 9 ? "" : "0") + "\(setHour)"
         }
     }
-    var setMinute = 0 {
+    var setMinute = 30 {
         didSet {
             minuteTextFieldView.stringValue = (setMinute > 9 ? "" : "0") + "\(setMinute)"
         }
@@ -96,7 +96,7 @@ class SetWorkTimeView: NSView {
         addSubview(addHourButtonView)
         addHourButtonView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            addHourButtonView.bottomAnchor.constraint(equalTo: hourTextFieldView.topAnchor, constant: 0),
+            addHourButtonView.bottomAnchor.constraint(equalTo: hourTextFieldView.topAnchor, constant: 6),
             addHourButtonView.centerXAnchor.constraint(equalTo: hourTextFieldView.centerXAnchor),
             addHourButtonView.topAnchor.constraint(equalTo: topAnchor),
             addHourButtonView.widthAnchor.constraint(equalToConstant: 25),
@@ -106,7 +106,7 @@ class SetWorkTimeView: NSView {
         addSubview(minusHourButtonView)
         minusHourButtonView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            minusHourButtonView.topAnchor.constraint(equalTo: hourTextFieldView.bottomAnchor, constant: 0),
+            minusHourButtonView.topAnchor.constraint(equalTo: hourTextFieldView.bottomAnchor, constant: -6),
             minusHourButtonView.centerXAnchor.constraint(equalTo: hourTextFieldView.centerXAnchor),
             minusHourButtonView.bottomAnchor.constraint(equalTo: bottomAnchor),
             minusHourButtonView.widthAnchor.constraint(equalToConstant: 25),
@@ -131,7 +131,7 @@ class SetWorkTimeView: NSView {
         addSubview(addMinuteButtonView)
         addMinuteButtonView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            addMinuteButtonView.bottomAnchor.constraint(equalTo: minuteTextFieldView.topAnchor),
+            addMinuteButtonView.bottomAnchor.constraint(equalTo: minuteTextFieldView.topAnchor, constant: 6),
             addMinuteButtonView.centerXAnchor.constraint(equalTo: minuteTextFieldView.centerXAnchor),
             addMinuteButtonView.widthAnchor.constraint(equalToConstant: 25),
             addMinuteButtonView.heightAnchor.constraint(equalToConstant: 25)
@@ -140,7 +140,7 @@ class SetWorkTimeView: NSView {
         addSubview(minusMinuteButtonView)
         minusMinuteButtonView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            minusMinuteButtonView.topAnchor.constraint(equalTo: minuteTextFieldView.bottomAnchor),
+            minusMinuteButtonView.topAnchor.constraint(equalTo: minuteTextFieldView.bottomAnchor, constant: -6),
             minusMinuteButtonView.centerXAnchor.constraint(equalTo: minuteTextFieldView.centerXAnchor),
             minusMinuteButtonView.widthAnchor.constraint(equalToConstant: 25),
             minusMinuteButtonView.heightAnchor.constraint(equalToConstant: 25)

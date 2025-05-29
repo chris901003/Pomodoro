@@ -16,6 +16,7 @@ class MainViewController: NSViewController {
     let timeView = TimeView()
 
     let setWorkTimeView = SetWorkTimeView()
+    let setRestTimeView = SetRestTimeView()
 
     let startButtonView = StartButtonView()
     let stopButtonView = StopButtonView()
@@ -77,7 +78,14 @@ class MainViewController: NSViewController {
         setWorkTimeView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             setWorkTimeView.centerXAnchor.constraint(equalTo: timeCircleBackground.centerXAnchor),
-            setWorkTimeView.bottomAnchor.constraint(equalTo: timeCircleBackground.centerYAnchor, constant: -24)
+            setWorkTimeView.bottomAnchor.constraint(equalTo: timeCircleBackground.centerYAnchor, constant: -12)
+        ])
+
+        view.addSubview(setRestTimeView)
+        setRestTimeView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            setRestTimeView.centerXAnchor.constraint(equalTo: timeCircleBackground.centerXAnchor),
+            setRestTimeView.topAnchor.constraint(equalTo: timeCircleBackground.centerYAnchor, constant: 12)
         ])
 
         view.addSubview(startButtonView)
