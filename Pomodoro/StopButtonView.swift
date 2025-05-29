@@ -20,12 +20,18 @@ class StopButtonView: NSView {
     var isActivate: Bool = false {
         didSet {
             if isActivate {
-                circleView.layer?.borderColor = NSColor.systemRed.cgColor
-                labelView.textColor = .white
+                DispatchQueue.main.async { [weak self] in
+                    guard let self else { return }
+                    circleView.layer?.borderColor = NSColor.systemRed.cgColor
+                    labelView.textColor = .white
+                }
             } else {
-                circleView.layer?.borderColor = NSColor.controlBackgroundColor.cgColor
-                labelView.textColor = .controlBackgroundColor
-                circleView.layer?.backgroundColor = .clear
+                DispatchQueue.main.async { [weak self] in
+                    guard let self else { return }
+                    circleView.layer?.borderColor = NSColor.controlBackgroundColor.cgColor
+                    labelView.textColor = .controlBackgroundColor
+                    circleView.layer?.backgroundColor = .clear
+                }
             }
         }
     }

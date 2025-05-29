@@ -15,6 +15,7 @@ class MainViewController: NSViewController {
     let circleView = GradientCircleProgressView()
 
     let timeView = TimeView()
+    let roundCountLabelView = NSTextField()
 
     let setWorkTimeView = SetWorkTimeView()
     let setRestTimeView = SetRestTimeView()
@@ -56,6 +57,14 @@ class MainViewController: NSViewController {
 
         timeView.alphaValue = 0
 
+        roundCountLabelView.alphaValue = 0
+        roundCountLabelView.font = .systemFont(ofSize: 14, weight: .bold)
+        roundCountLabelView.textColor = .labelColor
+        roundCountLabelView.isBordered = false
+        roundCountLabelView.drawsBackground = false
+        roundCountLabelView.isSelectable = false
+        roundCountLabelView.isEditable = false
+
         startButtonView.delegate = manager
         stopButtonView.delegate = manager
     }
@@ -92,6 +101,13 @@ class MainViewController: NSViewController {
         NSLayoutConstraint.activate([
             timeView.centerXAnchor.constraint(equalTo: timeCircleBackground.centerXAnchor),
             timeView.centerYAnchor.constraint(equalTo: timeCircleBackground.centerYAnchor)
+        ])
+
+        view.addSubview(roundCountLabelView)
+        roundCountLabelView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            roundCountLabelView.bottomAnchor.constraint(equalTo: timeCircleBackground.bottomAnchor, constant: -72),
+            roundCountLabelView.centerXAnchor.constraint(equalTo: timeCircleBackground.centerXAnchor)
         ])
 
         view.addSubview(setWorkTimeView)

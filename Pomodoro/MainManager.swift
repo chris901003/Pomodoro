@@ -32,6 +32,9 @@ class MainManager {
         currentRound = 0
         Task {
             while currentRound < totalRound {
+                await MainActor.run {
+                    vc.roundCountLabelView.stringValue = "第 \(currentRound + 1) / \(totalRound) 回合 (工作中)"
+                }
                 remainWorkTime = totalWorkTime
                 while 0 < remainWorkTime {
                     let percent = Double(remainWorkTime) / Double(totalWorkTime)
@@ -44,6 +47,9 @@ class MainManager {
                     try? await Task.sleep(nanoseconds: 1_000_000_000)
                     remainWorkTime -= 1
                     guard isStart else { return }
+                }
+                await MainActor.run {
+                    vc.roundCountLabelView.stringValue = "第 \(currentRound + 1) / \(totalRound) 回合 (休息中)"
                 }
                 remainRestTime = totalRestTime
                 while 0 < remainRestTime {
@@ -60,6 +66,7 @@ class MainManager {
                 }
                 currentRound += 1
             }
+            stopPomodoro()
         }
     }
 }
@@ -76,6 +83,7 @@ extension MainManager: StartButtonViewDelegate {
             vc?.timeCircleBackground.animator().alphaValue = 0
             vc?.timeView.animator().alphaValue = 1
             vc?.circleView.animator().alphaValue = 1
+            vc?.roundCountLabelView.animator().alphaValue = 1
         } completionHandler: {
             self.start()
         }
@@ -95,9 +103,11 @@ extension MainManager: StopButtonViewDelegate {
             vc?.timeCircleBackground.animator().alphaValue = 1
             vc?.timeView.animator().alphaValue = 0
             vc?.circleView.animator().alphaValue = 0
+            vc?.roundCountLabelView.animator().alphaValue = 0
         } completionHandler: {
             self.vc?.circleView.progress = 1
         }
         vc?.stopButtonView.isActivate = false
+        vc?.roundCountLabelView.stringValue = ""
     }
 }
