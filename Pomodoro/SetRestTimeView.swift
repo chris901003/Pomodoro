@@ -96,10 +96,10 @@ class SetRestTimeView: NSView {
 
 extension SetRestTimeView {
     @objc private func tapAddMinuteAction() {
-        setMinute = setMinute == 59 ? 0 : setMinute + 1
+        setMinute = setMinute == 59 ? 1 : setMinute + 1
     }
 
     @objc private func tapMinusMinuteAction() {
-        setMinute = setMinute == 0 ? 59 : setMinute - 1
+        setMinute = setMinute == 1 ? 59 : setMinute - 1
     }
 }

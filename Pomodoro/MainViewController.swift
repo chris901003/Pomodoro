@@ -17,6 +17,8 @@ class MainViewController: NSViewController {
     let timeView = TimeView()
     let roundCountLabelView = NSTextField()
 
+    let countDownView = CountDownView()
+
     let setWorkTimeView = SetWorkTimeView()
     let setRestTimeView = SetRestTimeView()
     let setRoundView = SetRoundView()
@@ -108,6 +110,13 @@ class MainViewController: NSViewController {
         NSLayoutConstraint.activate([
             roundCountLabelView.bottomAnchor.constraint(equalTo: timeCircleBackground.bottomAnchor, constant: -72),
             roundCountLabelView.centerXAnchor.constraint(equalTo: timeCircleBackground.centerXAnchor)
+        ])
+
+        view.addSubview(countDownView)
+        countDownView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            countDownView.centerXAnchor.constraint(equalTo: timeCircleBackground.centerXAnchor),
+            countDownView.centerYAnchor.constraint(equalTo: timeCircleBackground.centerYAnchor)
         ])
 
         view.addSubview(setWorkTimeView)

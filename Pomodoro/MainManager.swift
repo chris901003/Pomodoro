@@ -37,6 +37,12 @@ class MainManager {
                 }
                 remainWorkTime = totalWorkTime
                 while 0 < remainWorkTime {
+                    if remainWorkTime == 3 {
+                        if let url = Bundle.main.url(forResource: "End", withExtension: "mp3"),
+                           let sound = NSSound(contentsOf: url, byReference: false) {
+                            sound.play()
+                        }
+                    }
                     let percent = Double(remainWorkTime) / Double(totalWorkTime)
                     await MainActor.run {
                         vc.circleView.progress = percent
@@ -53,6 +59,12 @@ class MainManager {
                 }
                 remainRestTime = totalRestTime
                 while 0 < remainRestTime {
+                    if remainRestTime == 3 {
+                        if let url = Bundle.main.url(forResource: "Start", withExtension: "mp3"),
+                           let sound = NSSound(contentsOf: url, byReference: false) {
+                            sound.play()
+                        }
+                    }
                     let percent = Double(remainRestTime) / Double(totalRestTime)
                     await MainActor.run {
                         vc.circleView.progress = percent
@@ -81,13 +93,26 @@ extension MainManager: StartButtonViewDelegate {
             vc?.setRestTimeView.animator().alphaValue = 0
             vc?.setRoundView.animator().alphaValue = 0
             vc?.timeCircleBackground.animator().alphaValue = 0
-            vc?.timeView.animator().alphaValue = 1
-            vc?.circleView.animator().alphaValue = 1
-            vc?.roundCountLabelView.animator().alphaValue = 1
         } completionHandler: {
-            self.start()
+            self.vc?.countDownView.startCountDown(value: 3)
+            if let url = Bundle.main.url(forResource: "Begin", withExtension: "mp3"),
+               let sound = NSSound(contentsOf: url, byReference: false) {
+                sound.play()
+            }
         }
-        vc?.stopButtonView.isActivate = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
+            guard let self else { return }
+            NSAnimationContext.runAnimationGroup { [weak self] context in
+                guard let self else { return }
+                context.duration = 0.25
+                vc?.timeView.animator().alphaValue = 1
+                vc?.circleView.animator().alphaValue = 1
+                vc?.roundCountLabelView.animator().alphaValue = 1
+            } completionHandler: {
+                self.start()
+            }
+            vc?.stopButtonView.isActivate = true
+        }
     }
 }
 
