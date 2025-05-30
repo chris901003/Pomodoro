@@ -49,6 +49,7 @@ class MainManager {
                         vc.timeView.hourLabelView.stringValue = String(format: "%02d", remainWorkTime / 3600)
                         vc.timeView.minuteLabelView.stringValue = String(format: "%02d", (remainWorkTime % 3600) / 60)
                         vc.timeView.secondLabelView.stringValue = String(format: "%02d", remainWorkTime % 60)
+                        PNotification.sendSetWorkTime(remainTime: remainWorkTime)
                     }
                     try? await Task.sleep(nanoseconds: 1_000_000_000)
                     remainWorkTime -= 1
@@ -71,6 +72,7 @@ class MainManager {
                         vc.timeView.hourLabelView.stringValue = String(format: "%02d", remainRestTime / 3600)
                         vc.timeView.minuteLabelView.stringValue = String(format: "%02d", (remainRestTime % 3600) / 60)
                         vc.timeView.secondLabelView.stringValue = String(format: "%02d", remainRestTime % 60)
+                        PNotification.sendSetRestTime(remainTime: remainRestTime)
                     }
                     try? await Task.sleep(nanoseconds: 1_000_000_000)
                     remainRestTime -= 1
@@ -78,7 +80,7 @@ class MainManager {
                 }
                 currentRound += 1
             }
-            stopPomodoro()
+            await MainActor.run { stopPomodoro() }
         }
     }
 }
@@ -134,5 +136,6 @@ extension MainManager: StopButtonViewDelegate {
         }
         vc?.stopButtonView.isActivate = false
         vc?.roundCountLabelView.stringValue = ""
+        PNotification.sendEndPomodoro()
     }
 }
