@@ -26,6 +26,8 @@ class MainViewController: NSViewController {
     let startButtonView = StartButtonView()
     let stopButtonView = StopButtonView()
 
+    let copyrightView = NSTextField(labelWithString: "© 2025 xxooooxx. All rights reserved.")
+
     let manager = MainManager()
 
     override func viewDidLoad() {
@@ -66,6 +68,13 @@ class MainViewController: NSViewController {
         roundCountLabelView.drawsBackground = false
         roundCountLabelView.isSelectable = false
         roundCountLabelView.isEditable = false
+
+        copyrightView.font = .systemFont(ofSize: 14, weight: .semibold)
+        copyrightView.textColor = .secondaryLabelColor
+        copyrightView.isBordered = false
+        copyrightView.drawsBackground = false
+        copyrightView.drawsBackground = false
+        copyrightView.isEditable = false
 
         startButtonView.delegate = manager
         stopButtonView.delegate = manager
@@ -152,6 +161,13 @@ class MainViewController: NSViewController {
         NSLayoutConstraint.activate([
             stopButtonView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
             stopButtonView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -12)
+        ])
+
+        view.addSubview(copyrightView)
+        copyrightView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            copyrightView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -12),
+            copyrightView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
 }
