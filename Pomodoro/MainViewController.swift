@@ -41,6 +41,8 @@ class MainViewController: NSViewController {
 
         view.wantsLayer = true
         view.layer?.backgroundColor = NSColor.windowBackgroundColor.cgColor
+        view.layer?.cornerRadius = 20.0
+        view.layer?.masksToBounds = true
 
         titleLabel.stringValue = "Pomodoro"
         titleLabel.font = .systemFont(ofSize: 16, weight: .semibold)

@@ -8,40 +8,13 @@
 
 import Cocoa
 
-//@main
 class AppDelegate: NSObject, NSApplicationDelegate {
     var window: NSWindow!
-    var statusItem: NSStatusItem!
+    var pomodoroStatusBarSetup: PomodoroStatusBarSetup!
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Window Setup
-        let windowSize = NSMakeRect(0, 0, 800, 600)
-
-        window = NSWindow(
-            contentRect: windowSize,
-            styleMask: [.titled, .closable, .resizable, .miniaturizable],
-            backing: .buffered,
-            defer: false
-        )
-
-        window.center()
-        window.title = "Pomodoro"
-        window.makeKeyAndOrderFront(nil)
-        window.contentViewController = MainViewController()
-
         // Menu Status Bar Setup
-        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-        if let button = statusItem.button {
-            let menuStatusBarIconView = MenuStatusBarIconView()
-            button.addSubview(menuStatusBarIconView)
-            menuStatusBarIconView.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                menuStatusBarIconView.heightAnchor.constraint(equalToConstant: 22),
-                menuStatusBarIconView.leadingAnchor.constraint(equalTo: button.leadingAnchor),
-                menuStatusBarIconView.trailingAnchor.constraint(equalTo: button.trailingAnchor),
-                menuStatusBarIconView.centerYAnchor.constraint(equalTo: button.centerYAnchor)
-            ])
-        }
+        pomodoroStatusBarSetup = PomodoroStatusBarSetup()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -51,7 +24,5 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
         return true
     }
-
-
 }
 
