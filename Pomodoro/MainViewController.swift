@@ -11,6 +11,8 @@ import Cocoa
 
 class MainViewController: NSViewController {
     let titleLabel = NSTextField()
+    let quitButtonView = QuitButtonView()
+
     let timeCircleBackground = NSView()
     let circleView = GradientCircleProgressView()
 
@@ -89,6 +91,13 @@ class MainViewController: NSViewController {
             titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 12),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
             titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12)
+        ])
+
+        view.addSubview(quitButtonView)
+        quitButtonView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            quitButtonView.topAnchor.constraint(equalTo: view.topAnchor, constant: 12),
+            quitButtonView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12)
         ])
 
         view.addSubview(timeCircleBackground)
