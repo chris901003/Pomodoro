@@ -88,6 +88,7 @@ class MainManager {
 // MARK: - Start Button View Delegate
 extension MainManager: StartButtonViewDelegate {
     func startPomodoro() {
+        vc?.startButtonView.isActivate = false
         isStart = true
         NSAnimationContext.runAnimationGroup { context in
             context.duration = 0.25
@@ -134,6 +135,7 @@ extension MainManager: StopButtonViewDelegate {
         } completionHandler: {
             self.vc?.circleView.progress = 1
         }
+        vc?.startButtonView.isActivate = true
         vc?.stopButtonView.isActivate = false
         vc?.roundCountLabelView.stringValue = ""
         PNotification.sendEndPomodoro()

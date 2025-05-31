@@ -18,6 +18,18 @@ class StartButtonView: NSView {
     let labelView = NSTextField()
 
     weak var delegate: StartButtonViewDelegate?
+    var isActivate: Bool = true {
+        didSet {
+            if isActivate {
+                circleView.layer?.borderColor = NSColor.systemGreen.cgColor
+                labelView.textColor = .systemGreen
+            } else {
+                circleView.layer?.backgroundColor = .clear
+                circleView.layer?.borderColor = NSColor.controlBackgroundColor.cgColor
+                labelView.textColor = .controlBackgroundColor
+            }
+        }
+    }
 
     init() {
         super.init(frame: .zero)
@@ -82,16 +94,19 @@ class StartButtonView: NSView {
     }
 
     override func mouseEntered(with event: NSEvent) {
+        guard isActivate else { return }
         circleView.layer?.backgroundColor = NSColor.systemGreen.cgColor
         labelView.textColor = .white
     }
 
     override func mouseExited(with event: NSEvent) {
+        guard isActivate else { return }
         circleView.layer?.backgroundColor = .clear
         labelView.textColor = .systemGreen
     }
 
     override func mouseDown(with event: NSEvent) {
+        guard isActivate else { return }
         let locationInView = convert(event.locationInWindow, from: nil)
         if circleView.frame.contains(locationInView) {
             circleView.layer?.backgroundColor = .clear
@@ -100,6 +115,7 @@ class StartButtonView: NSView {
     }
 
     override func mouseUp(with event: NSEvent) {
+        guard isActivate else { return }
         let locationInView = convert(event.locationInWindow, from: nil)
         if circleView.frame.contains(locationInView) {
             circleView.layer?.backgroundColor = NSColor.systemGreen.cgColor
