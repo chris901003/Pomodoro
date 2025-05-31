@@ -13,6 +13,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var pomodoroStatusBarSetup: PomodoroStatusBarSetup!
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        // Force use dark mode
+        NSApp.appearance = NSAppearance(named: .darkAqua)
         // Menu Status Bar Setup
         pomodoroStatusBarSetup = PomodoroStatusBarSetup()
     }
